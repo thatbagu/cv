@@ -183,7 +183,7 @@ def main():
     with open("telegram_results.json", "w") as f:
         json.dump(output, f, indent=2)
 
-    return True if successful_posts else False
+    return 0
 
 
 if __name__ == "__main__":
