@@ -146,12 +146,12 @@ resource "google_compute_security_policy" "default" {
       exceed_action  = "deny(429)"
       enforce_on_key = "IP"
       rate_limit_threshold {
-        count        = 120
+        count        = 600
         interval_sec = 60
       }
-      ban_duration_sec = 300
+      ban_duration_sec = 60
     }
-    description = "Rate limit: 120 req/min per IP, ban 5 min on breach"
+    description = "Rate limit: 600 req/min per IP, ban 1 min on breach"
   }
 
   rule {
