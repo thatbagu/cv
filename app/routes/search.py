@@ -1,6 +1,4 @@
 from fastapi import APIRouter, Request
-from slowapi import Limiter
-from slowapi.util import get_remote_address
 from bs4 import BeautifulSoup
 import asyncio
 import os
@@ -9,7 +7,6 @@ import time
 from app.utils import read_file, parse_markdown_file
 
 router = APIRouter()
-limiter = Limiter(key_func=get_remote_address)
 
 MAX_TERM_LEN = 100
 
@@ -32,7 +29,7 @@ def _cache_set(key: str, value):
 
 
 @router.get("/search")
-@limiter.limit("20/minute")
+
 async def handle_search(request: Request, term: str, page: str = "all"):
     term = term[:MAX_TERM_LEN]
     search_term = term.lower()
@@ -85,7 +82,7 @@ async def handle_search(request: Request, term: str, page: str = "all"):
 
 
 @router.get("/search-blog")
-@limiter.limit("20/minute")
+
 async def handle_blog_search(request: Request, term: str):
     term = term[:MAX_TERM_LEN]
     search_results = await search_blog_posts(term.lower())

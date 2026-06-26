@@ -3,4 +3,4 @@ uvicorn[standard]
 beautifulsoup4
 markdown
 pyyaml
-slowapi
+
