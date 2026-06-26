@@ -15,7 +15,7 @@ posted_to:
 - telegram
 - mastodon
 - devto
-slug: nix-solo-ml
+slug: nix-for-ml
 title: High velocity ML development with Nix and AWS
 ---
 
