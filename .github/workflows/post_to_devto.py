@@ -11,25 +11,34 @@ import requests
 from typing import Dict, List
 
 
+BASE_URL = "https://mlship.dev"
+
+
+def rewrite_relative_urls(content: str) -> str:
+    import re
+    # Rewrite markdown images: ![alt](/path) -> ![alt](https://mlship.dev/path)
+    content = re.sub(
+        r'!\[([^\]]*)\]\((/[^)]+)\)',
+        lambda m: f'![{m.group(1)}]({BASE_URL}{m.group(2)})',
+        content,
+    )
+    # Rewrite markdown links: [text](/path) -> [text](https://mlship.dev/path)
+    content = re.sub(
+        r'\[([^\]]*)\]\((/[^)]+)\)',
+        lambda m: f'[{m.group(1)}]({BASE_URL}{m.group(2)})',
+        content,
+    )
+    return content
+
+
 def read_markdown_content(file_path: str) -> str:
-    """
-    Read the markdown content from a blog post file (excluding frontmatter).
-
-    Args:
-        file_path: Path to markdown file
-
-    Returns:
-        Markdown content without frontmatter
-    """
     try:
         with open(file_path, "r", encoding="utf-8") as f:
             content = f.read()
 
-        # Split by --- to remove frontmatter
         parts = content.split("---", 2)
-        if len(parts) >= 3:
-            return parts[2].strip()
-        return content
+        markdown = parts[2].strip() if len(parts) >= 3 else content
+        return rewrite_relative_urls(markdown)
     except Exception as e:
         print(f"✗ Error reading markdown file: {e}", file=sys.stderr)
         return ""
