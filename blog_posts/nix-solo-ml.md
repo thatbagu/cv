@@ -1,12 +1,20 @@
 ---
 abstract: Quick start cloud ML development environment with Nix
-date: "2026-06-27"
-excerpt: Automatic ML setup through Nix on AWS with basic logging services and model deployment
+date: '2026-06-27'
+excerpt: Automatic ML setup through Nix on AWS with basic logging services and model
+  deployment
 platforms:
-  - telegram
-  - twitter
-  - mastodon
-  - devto
+- telegram
+- twitter
+- mastodon
+- devto
+posted_devto_at: '2026-06-26T20:03:03.770234'
+posted_mastodon_at: '2026-06-26T20:03:03.537430'
+posted_telegram_at: '2026-06-26T20:03:03.433834'
+posted_to:
+- telegram
+- mastodon
+- devto
 slug: nix-solo-ml
 title: High velocity ML development with Nix and AWS
 ---
