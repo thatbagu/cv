@@ -11,21 +11,22 @@ import requests
 from typing import Dict, List
 
 
-BASE_URL = "https://mlship.dev"
+SITE_URL = "https://mlship.dev"
+GITHUB_RAW_URL = "https://raw.githubusercontent.com/thatbagu/cv/main"
 
 
 def rewrite_relative_urls(content: str) -> str:
     import re
-    # Rewrite markdown images: ![alt](/path) -> ![alt](https://mlship.dev/path)
+    # Images: point to GitHub raw so Dev.to can fetch them even if site is down
     content = re.sub(
         r'!\[([^\]]*)\]\((/[^)]+)\)',
-        lambda m: f'![{m.group(1)}]({BASE_URL}{m.group(2)})',
+        lambda m: f'![{m.group(1)}]({GITHUB_RAW_URL}{m.group(2)})',
         content,
     )
-    # Rewrite markdown links: [text](/path) -> [text](https://mlship.dev/path)
+    # Links: point to the live site
     content = re.sub(
         r'\[([^\]]*)\]\((/[^)]+)\)',
-        lambda m: f'[{m.group(1)}]({BASE_URL}{m.group(2)})',
+        lambda m: f'[{m.group(1)}]({SITE_URL}{m.group(2)})',
         content,
     )
     return content

@@ -92,9 +92,10 @@ jobs:
           name: posts
       - run: |
           python .github/workflows/post_to_twitter.py \
-            --client-id "${{ secrets.TWITTER_CLIENT_ID }}" \
-            --client-secret "${{ secrets.TWITTER_CLIENT_SECRET }}" \
-            --refresh-token "${{ secrets.TWITTER_REFRESH_TOKEN }}" \
+            --api-key "${{ secrets.TWITTER_API_KEY }}" \
+            --api-secret "${{ secrets.TWITTER_API_SECRET }}" \
+            --access-token "${{ secrets.TWITTER_ACCESS_TOKEN }}" \
+            --access-token-secret "${{ secrets.TWITTER_ACCESS_TOKEN_SECRET }}" \
             --posts-json posts.json
       - uses: actions/upload-artifact@v4
         if: always()

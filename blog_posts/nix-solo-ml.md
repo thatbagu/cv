@@ -1,6 +1,6 @@
 ---
 abstract: Quick start cloud ML development environment with Nix
-date: "2026-06-27"
+date: "2026-06-26"
 excerpt: Automatic ML setup through Nix on AWS with basic logging services and model deployment
 platforms:
   - telegram

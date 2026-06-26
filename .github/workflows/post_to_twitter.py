@@ -6,20 +6,6 @@ import tweepy
 from typing import Dict
 
 
-def get_access_token(client_id: str, client_secret: str, refresh_token: str) -> str:
-    handler = tweepy.OAuth2UserHandler(
-        client_id=client_id,
-        client_secret=client_secret,
-        redirect_uri="https://localhost",
-        scope=["tweet.read", "tweet.write", "users.read", "offline.access"],
-    )
-    token = handler.refresh_token(
-        "https://api.twitter.com/2/oauth2/token",
-        refresh_token=refresh_token,
-    )
-    return token["access_token"]
-
-
 def format_tweet(post_info: Dict, max_length: int = 280) -> str:
     title = post_info.get("title", "")
     abstract = post_info.get("abstract", "")
@@ -62,9 +48,10 @@ def main():
     import argparse
 
     parser = argparse.ArgumentParser()
-    parser.add_argument("--client-id", required=True)
-    parser.add_argument("--client-secret", required=True)
-    parser.add_argument("--refresh-token", required=True)
+    parser.add_argument("--api-key", required=True)
+    parser.add_argument("--api-secret", required=True)
+    parser.add_argument("--access-token", required=True)
+    parser.add_argument("--access-token-secret", required=True)
     parser.add_argument("--posts-json")
     parser.add_argument("--dry-run", action="store_true")
     args = parser.parse_args()
@@ -74,9 +61,12 @@ def main():
         print("No posts to publish", file=sys.stderr)
         return 0
 
-    print("Refreshing Twitter access token...", file=sys.stderr)
-    access_token = get_access_token(args.client_id, args.client_secret, args.refresh_token)
-    client = tweepy.Client(access_token=access_token)
+    client = tweepy.Client(
+        consumer_key=args.api_key,
+        consumer_secret=args.api_secret,
+        access_token=args.access_token,
+        access_token_secret=args.access_token_secret,
+    )
 
     successful_posts = []
 
