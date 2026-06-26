@@ -169,11 +169,10 @@ resource "google_compute_security_policy" "default" {
 
 # Create a backend service
 resource "google_compute_backend_service" "default" {
-  name            = "website-backend"
-  port_name       = "http"
-  protocol        = "HTTP"
-  timeout_sec     = 30
-  security_policy = google_compute_security_policy.default.id
+  name        = "website-backend"
+  port_name   = "http"
+  protocol    = "HTTP"
+  timeout_sec = 30
 
   health_checks = [google_compute_health_check.default.id]
 
