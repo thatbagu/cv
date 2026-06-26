@@ -6,208 +6,206 @@ on:
     paths:
       - 'blog_posts/*.md'
 
-# Add permissions for the workflow
 permissions:
-  contents: write  # Allow pushing commits back
+  contents: write
 
 jobs:
-  cross-post:
-    name: Post to Social Media
+  detect:
+    name: Detect posts to publish
     runs-on: ubuntu-latest
-    
+    outputs:
+      has_posts: ${{ steps.detect.outputs.has_posts }}
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
+      - uses: actions/checkout@v3
         with:
-          fetch-depth: 0  # Get full history to avoid issues with git diff
+          fetch-depth: 0
           token: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Set up Python
-        uses: actions/setup-python@v4
+      - uses: actions/setup-python@v4
         with:
           python-version: "3.9"
 
       - name: Install dependencies
-        run: |
-          python -m pip install --upgrade pip
-          pip install PyYAML requests requests-oauthlib
+        run: pip install PyYAML requests requests-oauthlib
 
-      - name: Detect posts to publish
+      - name: Detect posts
         id: detect
         run: |
-          # Run the detection script - stderr goes to console, stdout to file
           python .github/workflows/detect_posts_to_publish.py > posts.json
-          
-          # Debug: show what we got (this shows stderr output above)
-          echo "=== JSON content ==="
-          cat posts.json
-          echo "===================="
-          
-          # Check if the JSON is valid and non-empty
           if [ ! -s posts.json ]; then
             echo "has_posts=false" >> $GITHUB_OUTPUT
-            echo "posts.json is empty"
           else
-            # Use python to check if JSON dict is empty
             HAS_POSTS=$(python3 -c "
           import json
-          import sys
-          try:
-              with open('posts.json', 'r') as f:
-                  data = json.load(f)
-              print('true' if data else 'false')
-          except:
-              print('false')
+          with open('posts.json') as f:
+              data = json.load(f)
+          print('true' if data else 'false')
           ")
             echo "has_posts=$HAS_POSTS" >> $GITHUB_OUTPUT
-            
-            if [ "$HAS_POSTS" = "true" ]; then
-              echo "Posts to publish:"
-              python3 -m json.tool posts.json
-            else
-              echo "No posts need publishing"
-            fi
           fi
 
-      - name: Post to Telegram
-        if: steps.detect.outputs.has_posts == 'true'
-        run: |
+      - uses: actions/upload-artifact@v4
+        with:
+          name: posts
+          path: posts.json
+
+  post-telegram:
+    name: Post to Telegram
+    needs: detect
+    if: needs.detect.outputs.has_posts == 'true'
+    runs-on: ubuntu-latest
+    continue-on-error: true
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-python@v4
+        with:
+          python-version: "3.9"
+      - run: pip install PyYAML requests
+      - uses: actions/download-artifact@v4
+        with:
+          name: posts
+      - run: |
           python .github/workflows/post_to_telegram.py \
             --bot-token "${{ secrets.TELEGRAM_BOT_TOKEN }}" \
             --channel-id "${{ secrets.TELEGRAM_CHANNEL_ID }}" \
             --posts-json posts.json
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: telegram-results
+          path: telegram_results.json
 
-      - name: Post to Twitter
-        if: steps.detect.outputs.has_posts == 'true'
-        run: |
+  post-twitter:
+    name: Post to Twitter
+    needs: detect
+    if: needs.detect.outputs.has_posts == 'true'
+    runs-on: ubuntu-latest
+    continue-on-error: true
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-python@v4
+        with:
+          python-version: "3.9"
+      - run: pip install PyYAML requests requests-oauthlib
+      - uses: actions/download-artifact@v4
+        with:
+          name: posts
+      - run: |
           python .github/workflows/post_to_twitter.py \
             --api-key "${{ secrets.TWITTER_API_KEY }}" \
             --api-secret "${{ secrets.TWITTER_API_SECRET }}" \
             --access-token "${{ secrets.TWITTER_ACCESS_TOKEN }}" \
             --access-token-secret "${{ secrets.TWITTER_ACCESS_TOKEN_SECRET }}" \
             --posts-json posts.json
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: twitter-results
+          path: twitter_results.json
 
-      - name: Post to Mastodon
-        if: steps.detect.outputs.has_posts == 'true'
-        run: |
-          echo "=== Checking posts.json content ==="
-          cat posts.json
-          echo ""
-          echo "=== Starting Mastodon posting ==="
+  post-mastodon:
+    name: Post to Mastodon
+    needs: detect
+    if: needs.detect.outputs.has_posts == 'true'
+    runs-on: ubuntu-latest
+    continue-on-error: true
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-python@v4
+        with:
+          python-version: "3.9"
+      - run: pip install PyYAML requests
+      - uses: actions/download-artifact@v4
+        with:
+          name: posts
+      - run: |
           python .github/workflows/post_to_mastodon.py \
             --instance-url "${{ secrets.MASTODON_INSTANCE_URL }}" \
             --access-token "${{ secrets.MASTODON_ACCESS_TOKEN }}" \
             --posts-json posts.json
-          EXIT_CODE=$?
-          echo "Mastodon script exited with code: $EXIT_CODE"
-          if [ -f mastodon_results.json ]; then
-            echo "Results file created:"
-            cat mastodon_results.json
-          else
-            echo "No results file created - script may have skipped posting"
-          fi
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: mastodon-results
+          path: mastodon_results.json
 
-      - name: Post to Dev.to
-        if: steps.detect.outputs.has_posts == 'true'
-        run: |
+  post-devto:
+    name: Post to Dev.to
+    needs: detect
+    if: needs.detect.outputs.has_posts == 'true'
+    runs-on: ubuntu-latest
+    continue-on-error: true
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-python@v4
+        with:
+          python-version: "3.9"
+      - run: pip install PyYAML requests
+      - uses: actions/download-artifact@v4
+        with:
+          name: posts
+      - run: |
           python .github/workflows/post_to_devto.py \
             --api-key "${{ secrets.DEVTO_API_KEY }}" \
             --mode full \
             --posts-json posts.json
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: devto-results
+          path: devto_results.json
 
-      - name: Update frontmatter for successful posts
-        if: steps.detect.outputs.has_posts == 'true'
+  update-and-commit:
+    name: Update frontmatter and commit
+    needs: [post-telegram, post-twitter, post-mastodon, post-devto]
+    if: always() && needs.detect.outputs.has_posts == 'true'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - uses: actions/setup-python@v4
+        with:
+          python-version: "3.9"
+
+      - run: pip install PyYAML requests
+
+      - uses: actions/download-artifact@v4
+        with:
+          pattern: '*-results'
+          merge-multiple: true
+
+      - name: Update frontmatter
         run: |
-          # Read the results from Telegram posting
-          if [ -f telegram_results.json ]; then
-            python << 'EOF'
-          import json
-          import subprocess
-          
-          with open('telegram_results.json', 'r') as f:
+          for results_file in telegram_results.json twitter_results.json mastodon_results.json devto_results.json; do
+            if [ -f "$results_file" ]; then
+              python << EOF
+          import json, subprocess
+          with open('$results_file') as f:
               results = json.load(f)
-          
-          successful_posts = results.get('successful_posts', [])
-          platform = results.get('platform', 'telegram')
-          
-          for file_path in successful_posts:
+          for file_path in results.get('successful_posts', []):
+              platform = results.get('platform', '')
               print(f"Marking {file_path} as posted to {platform}")
               subprocess.run([
-                  'python',
-                  '.github/workflows/detect_posts_to_publish.py',
-                  '--update',
-                  f'{file_path}:{platform}'
+                  'python', '.github/workflows/detect_posts_to_publish.py',
+                  '--update', f'{file_path}:{platform}'
               ], check=True)
           EOF
-          fi
-          
-          # Read the results from Twitter posting
-          if [ -f twitter_results.json ]; then
-            python << 'EOF'
-          import json
-          import subprocess
-          
-          with open('twitter_results.json', 'r') as f:
-              results = json.load(f)
-          
-          successful_posts = results.get('successful_posts', [])
-          platform = results.get('platform', 'twitter')
-          
-          for file_path in successful_posts:
-              print(f"Marking {file_path} as posted to {platform}")
-              subprocess.run([
-                  'python',
-                  '.github/workflows/detect_posts_to_publish.py',
-                  '--update',
-                  f'{file_path}:{platform}'
-              ], check=True)
-          EOF
-          fi
-          
-          # Read the results from Mastodon posting
-          if [ -f mastodon_results.json ]; then
-            python << 'EOF'
-          import json
-          import subprocess
-          
-          with open('mastodon_results.json', 'r') as f:
-              results = json.load(f)
-          
-          successful_posts = results.get('successful_posts', [])
-          platform = results.get('platform', 'mastodon')
-          
-          for file_path in successful_posts:
-              print(f"Marking {file_path} as posted to {platform}")
-              subprocess.run([
-                  'python',
-                  '.github/workflows/detect_posts_to_publish.py',
-                  '--update',
-                  f'{file_path}:{platform}'
-              ], check=True)
-          EOF
-          fi
+            fi
+          done
 
-      - name: Commit frontmatter updates
-        if: steps.detect.outputs.has_posts == 'true'
+      - name: Commit
         run: |
           git config --local user.email "github-actions[bot]@users.noreply.github.com"
           git config --local user.name "github-actions[bot]"
-          
-          # Check if there are changes to commit
           if git diff --quiet; then
             echo "No changes to commit"
           else
             git add blog_posts/*.md
             git commit -m "Update posting status for blog posts [skip ci]"
-            
-            # Push using the default GITHUB_TOKEN with retry logic
             for i in {1..3}; do
-              if git push; then
-                echo "Successfully pushed changes"
-                break
-              else
-                echo "Push failed, retrying in 5 seconds... (attempt $i/3)"
-                sleep 5
-              fi
+              git push && break || (echo "Retrying..." && sleep 5)
             done
           fi
