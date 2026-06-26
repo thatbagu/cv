@@ -15,6 +15,8 @@ posted_to:
 - telegram
 - mastodon
 - devto
+- twitter
+posted_twitter_at: '2026-06-26T20:27:27.424302'
 slug: nix-for-ml
 title: High velocity ML development with Nix and AWS
 ---
