@@ -46,7 +46,7 @@ resource "google_compute_address" "static_ip" {
   name = local.static_ip_name
 }
 
-# Allow HTTP traffic
+# Allow HTTP traffic from GCP load balancer and health check IP ranges only
 resource "google_compute_firewall" "allow_http" {
   name    = "${local.firewall_rule_name}-http"
   network = "default"
@@ -56,11 +56,11 @@ resource "google_compute_firewall" "allow_http" {
     ports    = ["80"]
   }
 
-  source_ranges = ["0.0.0.0/0"]
+  source_ranges = ["130.211.0.0/22", "35.191.0.0/16"]
   target_tags   = ["http-server"]
 }
 
-# Allow HTTPS traffic
+# Allow HTTPS traffic from GCP load balancer IP ranges only
 resource "google_compute_firewall" "allow_https" {
   name    = "${local.firewall_rule_name}-https"
   network = "default"
@@ -70,7 +70,7 @@ resource "google_compute_firewall" "allow_https" {
     ports    = ["443"]
   }
 
-  source_ranges = ["0.0.0.0/0"]
+  source_ranges = ["130.211.0.0/22", "35.191.0.0/16"]
   target_tags   = ["https-server"]
 }
 
@@ -128,12 +128,52 @@ resource "google_compute_url_map" "old_domain" {
   }
 }
 
+# Cloud Armor security policy: rate limiting + DDoS protection
+resource "google_compute_security_policy" "default" {
+  name = "website-security-policy"
+
+  rule {
+    action   = "rate_based_ban"
+    priority = 1000
+    match {
+      versioned_expr = "SRC_IPS_V1"
+      config {
+        src_ip_ranges = ["*"]
+      }
+    }
+    rate_limit_options {
+      conform_action = "allow"
+      exceed_action  = "deny(429)"
+      enforce_on_key = "IP"
+      rate_limit_threshold {
+        count        = 120
+        interval_sec = 60
+      }
+      ban_duration_sec = 300
+    }
+    description = "Rate limit: 120 req/min per IP, ban 5 min on breach"
+  }
+
+  rule {
+    action   = "allow"
+    priority = 2147483647
+    match {
+      versioned_expr = "SRC_IPS_V1"
+      config {
+        src_ip_ranges = ["*"]
+      }
+    }
+    description = "Default allow"
+  }
+}
+
 # Create a backend service
 resource "google_compute_backend_service" "default" {
-  name        = "website-backend"
-  port_name   = "http"
-  protocol    = "HTTP"
-  timeout_sec = 30
+  name            = "website-backend"
+  port_name       = "http"
+  protocol        = "HTTP"
+  timeout_sec     = 30
+  security_policy = google_compute_security_policy.default.id
 
   health_checks = [google_compute_health_check.default.id]
 

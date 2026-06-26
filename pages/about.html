@@ -1,70 +1,83 @@
 <div id="about-content">
   <h1>Egor Kosaretsky</h1>
-  <h3>ML(Ops)-Engineer and Bioinformatician | Located in Almaty, Kazakhstan</h3>
+  <h3>MLOps Engineer | Located in Almaty, Kazakhstan</h3>
 <div class="profile-container">
   <img src="/assets/about/egor.jpeg" alt="Egor Kosaretsky" class="profile-img">
   <div class="summary">
     <h2>Summary</h2>
-    <p>Machine learning engineer and Bioinformatician with three years of
-    experience in machine learning algorithms, biological data processing
-    and analysis, Docker and K8s, ETL and CI/CD building with Python, R and
-    Bash.</p>
+    <p>MLOps engineer with 4+ years of experience specializing in ML platform infrastructure at scale.
+    ITPEC FE certified. Seeking relocation to Japan — no work restrictions.</p>
   </div>
 </div>
 
   <h2>Skills</h2>
   <ul>
-    <li><strong>Machine Learning:</strong> PyTorch (Lightning), scikit-learn</li>
-    <li><strong>Data Processing:</strong> Pandas, Polars, NumPy, Plotly, DVC, PostgreSQL</li>
-    <li><strong>Infrastructure:</strong> Docker, K8s, Airflow/Luigi, Ray, MLflow, ClearML, Kubeflow, Pytest</li>
-    <li><strong>Cloud:</strong> Yandex Cloud, Google Cloud, Amazon Web Services</li>
-    <li><strong>Programming:</strong> Python, R, Bash, Nix, Terraform</li>
-    <li><strong>Bioinformatics:</strong> Snakemake, genomic data analysis</li>
-    <li><strong>Statistics:</strong> Probability theory, Bayesian statistics, ANOVA</li>
+    <li><strong>ML Infrastructure:</strong> Kubeflow, Ray, Nvidia Triton, MLflow, ClearML, Apache Airflow, DVC, Apache Spark</li>
+    <li><strong>Cloud &amp; DevOps:</strong> Google Cloud Platform, Amazon Web Services, AWS SageMaker, Databricks, Docker, Kubernetes, Terraform, Terragrunt, Nix, Atlantis, PostgreSQL, Prometheus, Grafana</li>
+    <li><strong>Programming:</strong> Python, PyTorch, Lightning, FastAPI, Pandas, Polars, scikit-learn, NumPy, Snakemake, Luigi, Pytest, SQLAlchemy, R, Bash</li>
+    <li><strong>Machine Learning:</strong> Model serving, Inference optimization, Federated Learning, Gradient Boosting, Bayesian Statistics, Platform engineering</li>
   </ul>
 
-  <h2>Professional Experience</h2> 
-  <h3>InDrive | Machine Learning Operations Engineer</h3>
-  <p>Kazakhstan, Almaty | 06.2024 - current</p>
+  <h2>Professional Experience</h2>
+  <h3>inDrive | Machine Learning Operations Engineer</h3>
+  <p>Kazakhstan, Almaty | 06.2024 - present</p>
   <ul>
-    <li>Work collaboratively with a senior MLOps engineer and Head of Data Science, providing on-call support to data scientists and analysts across the organization</li>
-    <li>Maintain Kubeflow-based ML platform on Google Cloud, manage infrastructure through terragrunt, atlantis and nix, while developing and experimenting with inference platforms on Ray</li>
-    <li>Maintain MLflow K8s clusters and conduct POCs on Databricks and AWS SageMaker for platform evaluation</li>
-    <li>Led Kubeflow migration, developed Ray inference capabilities, and implemented nix development environment, contributing to a 20% decrease in on-call duty time and increased time to market for ML</li>
+    <li>Built and maintained the Kubeflow/GCP ML platform and Ray inference layer for data science teams across a 600-engineer org</li>
+    <li>Designed and shipped Inflow SDK — internal Python SDK standardizing the ML lifecycle from local dev to SageMaker, used in production by business services</li>
+    <li>Implemented CI inference testing (testcontainers), preset model packaging, and OIDC client — cut model time-to-production by ~30% across all model deployments</li>
+    <li>Led Databricks rollout (AI Platform 2.0): multi-region workspaces, GCP isolation, BigQuery/Lakehouse Federation, jobs compute migration</li>
   </ul>
 
   <h3>Third Opinion AI | Machine Learning Operations Engineer</h3>
-  <p>Russia, Moscow | 09.2023 - 06.2024</p>
+  <p>Russia, Moscow (remote) | 09.2023 - 06.2024</p>
   <ul>
-    <li>Implemented platform architecture with the Head of AI</li>
-    <li>Enhanced deployed ML services clusters based on Ray and Nvidia Triton</li>
-    <li>Developed framework and CI pipelines for CV researchers around ClearML and Kubeflow</li>
-    <li>Created a model registry and training workflow logging and orchestration</li>
+    <li>Co-designed ML platform architecture with the Head of AI; built a custom model storage and deployment interface on Nvidia Triton</li>
+    <li>Optimized Ray inference pipelines and resolved critical cluster instability — met accuracy and latency SLAs that directly enabled winning government contracts</li>
+    <li>Migrated CV research workflows to ClearML; implemented CI/CD pipelines and Kubeflow tooling for the research team</li>
   </ul>
 
   <h3>DevSect | Machine Learning Engineer</h3>
-  <p>Russia, remote | 04.2023 - 9.2023</p>
+  <p>Russia, remote | 04.2023 - 09.2023</p>
   <ul>
-    <li>Implemented standalone microservices with docker-compose and K8s</li>
-    <li>Developed FastAPI endpoints for facial expression, Text2Speech, and Speech2Text</li>
-    <li>Achieved a 12% increase in user app retention through AI feature integration</li>
+    <li>Implemented ML microservices (FastAPI, Docker, Kubernetes) for facial recognition, Text-to-Speech, and Speech-to-Text</li>
+    <li>Achieved a 12% increase in user app retention by integrating ML microservices into the mobile app</li>
   </ul>
 
-  <h3>GENXT | Bioinformatician Data Scientist</h3>
+  <h3>GENXT | Bioinformatician / Data Scientist</h3>
   <p>UK, remote | 09.2021 - 04.2023</p>
   <ul>
-    <li>Enhanced performance and quality of the genetic data pipeline</li>
-    <li>Implemented parallel processing and introduced new workflows in Snakemake</li>
-    <li>Conducted EDA and PCA analysis on genomic data</li>
-    <li>Contributed to Federated learning research efforts</li>
+    <li>Built parallel Snakemake genomic data pipelines; EDA/PCA with Seaborn and Plotly; fine-tuned CatBoost/XGBoost models; tested via Pytest and GitHub Actions</li>
+    <li>Shipped federated learning proof-of-concept (PyTorch, R) — adopted into a partner genetic company's production pipeline, proving scalability for large-scale genomic data</li>
   </ul>
 
   <h2>Education</h2>
   <h3>Lomonosov Moscow State University | Bioinformatics</h3>
   <p>Russia, Moscow | 2018 - 2023</p>
   <ul>
-    <li>Relevant Coursework: Probability theory, Intermediate Python, Statistics with R</li>
-    <li>Additional Courses: Max Delbrück Center for Molecular Medicine: ML for Genomics</li>
+    <li>Focus on genomics and data analysis; coursework in Probability Theory, Statistics with R, and Python</li>
+    <li>Additional training: ML for Genomics at Max Delbrück Center for Molecular Medicine</li>
+  </ul>
+
+  <h2>Certifications</h2>
+  <ul>
+    <li><strong>ITPEC Fundamental Information Technology Engineer Examination (FE)</strong> — Passed April 2026. Recognized by the Japan Ministry of Justice for Engineer visa qualification.</li>
+  </ul>
+
+  <h2>Languages</h2>
+  <ul>
+    <li><strong>Russian:</strong> Native</li>
+    <li><strong>English:</strong> Fluent</li>
+    <li><strong>German:</strong> Business level</li>
+    <li><strong>Japanese:</strong> Elementary — JLPT N5 certified, actively studying toward N4. Basic conversational speaking; reads hiragana, katakana, and ~300 kanji.</li>
+  </ul>
+
+  <h2>Papers &amp; Talks</h2>
+  <ul>
+    <li>Efficacy of Federated Learning on Genomic Data — federated learning engine proof of concept for genetic (SNP) data</li>
+    <li>GRAPE: Genomic Relatedness Detection Pipeline — open-source pipeline for large-scale relative search in genomic datasets</li>
+    <li>Growing an ML Platform from Scratch to Enterprise — Kolesa Conf, October 2025</li>
+    <li>Why (not) to choose Kubeflow as your ML platform — conference talk on migration, management, and trade-offs, January 2025</li>
+    <li>MLOps Skills as a Competitive Advantage for Data Analysts — Data Community Birthday, Almaty, February 2026</li>
   </ul>
 
   <a href="#" class="btn" hx-get="/projects" hx-target="#main-content">Projects and Contributions</a>

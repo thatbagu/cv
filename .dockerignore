@@ -8,3 +8,8 @@ __pycache__
 venv/
 *.json
 gha-creds-*
+tofu/
+.github/
+.devenv/
+*.tf
+*.tfvars

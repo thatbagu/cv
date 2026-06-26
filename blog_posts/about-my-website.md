@@ -20,7 +20,7 @@ title: How I built my website with Claude
 
 # Creating My Personal Website with Claude AI: A Journey of Discovery
 
-_[View the website code on GitHub](https://github.com/Jahysama/cv)_
+_[View the website code on GitHub](https://github.com/thatbagu/cv)_
 
 ## Introduction
 
