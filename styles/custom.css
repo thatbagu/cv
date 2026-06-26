@@ -1,0 +1,215 @@
+@layer base {
+  :root {
+    --font-family: "Courier New", "Courier", monospace;
+    --font-size: 16px;
+  }
+
+  body {
+    margin: 0;
+    padding: 2lh 2ch;
+    min-height: 100vh;
+  }
+}
+
+@layer components {
+  .container {
+    max-width: 120ch;
+    margin: 0 auto;
+  }
+
+  header {
+    text-align: center;
+    margin-bottom: 3lh;
+  }
+
+  nav {
+    display: flex;
+    gap: 1ch;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-bottom: 2lh;
+  }
+
+  footer {
+    text-align: center;
+    margin-top: 4lh;
+    padding-top: 2lh;
+  }
+
+  /* Profile section */
+  .profile-container {
+    display: flex;
+    gap: 2ch;
+    margin-bottom: 2lh;
+    flex-wrap: wrap;
+  }
+
+  .profile-img {
+    width: 30ch;
+    height: auto;
+    border-radius: 1ch;
+  }
+
+  .summary {
+    flex: 1;
+    min-width: 40ch;
+  }
+
+  /* Projects */
+  .projects-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(40ch, 1fr));
+    gap: 2ch;
+    margin-top: 2lh;
+  }
+
+  .project-card {
+    padding: 2lh 2ch;
+  }
+
+  .project-card h3 {
+    margin-top: 0;
+  }
+
+  .project-card img {
+    max-width: 100%;
+    height: auto;
+    margin-bottom: 1lh;
+  }
+
+  /* Blog */
+  .blog-post {
+    padding: 2lh 2ch;
+  }
+
+  .blog-post .post-header {
+    position: relative;
+    margin-bottom: 2lh;
+  }
+
+  .blog-post .copy-link-btn {
+    position: absolute;
+    top: 0;
+    right: 0;
+  }
+
+  .blog-post .post-date {
+    color: var(--subtext0);
+    font-style: italic;
+    margin-bottom: 1lh;
+  }
+
+  .blog-post .post-content img {
+    max-width: 100%;
+    height: auto;
+    margin: 2lh auto;
+    display: block;
+  }
+
+  .blog-post .post-content pre {
+    background-color: var(--mantle);
+    padding: 1lh 1ch;
+    border-radius: 0.5ch;
+    overflow-x: auto;
+  }
+
+  #blog-posts article {
+    margin-bottom: 2lh;
+    padding-bottom: 2lh;
+    border-bottom: 1px solid var(--surface1);
+  }
+
+  #blog-posts article:last-child {
+    border-bottom: none;
+  }
+
+  /* Contact form */
+  .contact-form {
+    max-width: 80ch;
+    margin: 2lh auto;
+    padding: 2lh 2ch;
+  }
+
+  .form-group {
+    margin-bottom: 1lh;
+  }
+
+  .form-group label {
+    display: block;
+    margin-bottom: 0.5lh;
+    color: var(--subtext0);
+  }
+
+  .form-group input,
+  .form-group textarea {
+    width: 100%;
+    padding: 1lh 1ch;
+    background-color: var(--base);
+    color: var(--text);
+    border: 1px solid var(--surface2);
+    font-family: var(--font-family);
+    box-sizing: border-box;
+    border-radius: 0.5ch;
+  }
+
+  .form-group textarea {
+    min-height: 10lh;
+    resize: vertical;
+  }
+
+  .connect-info {
+    margin-top: 3lh;
+    text-align: center;
+  }
+
+  /* Social links */
+  .social-links {
+    display: flex;
+    justify-content: center;
+    gap: 2ch;
+    margin-top: 2lh;
+  }
+
+  .social-links a {
+    transition: transform 0.3s ease;
+  }
+
+  .social-links a:hover {
+    transform: translateY(-0.5lh);
+  }
+
+  /* Mastodon post styling */
+  #mastodon-post {
+    margin-top: 2lh;
+    padding: 2lh 2ch;
+  }
+
+  /* Responsive */
+  @media (max-width: 768px) {
+    body {
+      padding: 1lh 1ch;
+    }
+
+    .profile-container {
+      flex-direction: column;
+    }
+
+    .profile-img {
+      width: 100%;
+      max-width: 30ch;
+      margin: 0 auto;
+    }
+
+    .projects-grid {
+      grid-template-columns: 1fr;
+    }
+
+    nav {
+      flex-direction: column;
+    }
+
+    nav button {
+      width: 100%;
+    }
+  }
+}
