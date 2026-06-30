@@ -198,7 +198,8 @@ def detect_posts_to_publish() -> Dict[str, Dict]:
                 "platforms": platforms,
                 "url": url,
                 "title": metadata.get("title", ""),
-                "abstract": metadata.get("abstract", metadata.get("excerpt", "")),
+                "abstract": metadata.get("abstract", ""),
+                "excerpt": metadata.get("excerpt", ""),
             }
 
             print(

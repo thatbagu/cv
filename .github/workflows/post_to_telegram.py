@@ -12,31 +12,24 @@ from typing import Dict, List
 
 
 def format_telegram_message(post_info: Dict) -> str:
-    """
-    Format post information into a Telegram message.
-    Telegram supports HTML and Markdown formatting.
-    """
     title = post_info.get("title", "")
     abstract = post_info.get("abstract", "")
+    excerpt = post_info.get("excerpt", "")
     url = post_info.get("url", "")
 
-    # Get hashtags from metadata
     metadata = post_info.get("metadata", {})
     hashtags = metadata.get("hashtags_telegram", metadata.get("hashtags", []))
-
-    # Format hashtags (Telegram uses #hashtag format)
     hashtag_string = " ".join(
         [f"#{tag}" if not tag.startswith("#") else tag for tag in hashtags]
     )
 
-    # Using HTML formatting (Telegram supports both HTML and Markdown)
-    message = f"""<b>{title}</b>
+    message = f"<b>{title}</b>\n\n{abstract}"
 
-{abstract}
+    if excerpt:
+        message += f"\n\n{excerpt}"
 
-<a href="{url}">Read full article →</a>"""
+    message += f"\n\n<a href=\"{url}\">Read full article →</a>"
 
-    # Add hashtags if present
     if hashtag_string:
         message += f"\n\n{hashtag_string}"
 
