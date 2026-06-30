@@ -1,16 +1,32 @@
 ---
-abstract: A NixOS homelab template for a self-hosted k3s cluster, built out of frustration with minimal setups and a belief that owning your compute matters
-date: "2026-06-30"
-excerpt: >-
-  I started this after watching a Dreams of Autonomy video in 2024, bought Beelink mini PCs, fought through Kazakhstani customs, and ended up deeply unsatisfied with minimal NixOS homelab setups that only bootstrapped the cluster but left service deployment out. So I built my own: a fully declarative k3s cluster where Colmena handles the system layer and a NixOS activation script applies Helm charts on top. The entire stack (MetalLB, Longhorn, Pi-hole, WireGuard, Nextcloud, cert-manager) lives in a single vars.nix. Every boot wipes / via btrfs rollback so nodes are always in a known-good state. The deeper reason: I think owning your compute is becoming essential as corporations buy more and more for datacenters.
+abstract: A NixOS homelab template for a self-hosted k3s cluster, built out of frustration
+  with minimal setups and a belief that owning your compute matters
+date: '2026-06-30'
+excerpt: 'I started this after watching a Dreams of Autonomy video in 2024, bought
+  Beelink mini PCs, fought through Kazakhstani customs, and ended up deeply unsatisfied
+  with minimal NixOS homelab setups that only bootstrapped the cluster but left service
+  deployment out. So I built my own: a fully declarative k3s cluster where Colmena
+  handles the system layer and a NixOS activation script applies Helm charts on top.
+  The entire stack (MetalLB, Longhorn, Pi-hole, WireGuard, Nextcloud, cert-manager)
+  lives in a single vars.nix. Every boot wipes / via btrfs rollback so nodes are always
+  in a known-good state. The deeper reason: I think owning your compute is becoming
+  essential as corporations buy more and more for datacenters.'
 platforms:
-  - telegram
-  - twitter
-  - mastodon
-  - devto
-posted_to: []
+- telegram
+- twitter
+- mastodon
+- devto
+posted_devto_at: '2026-06-30T18:29:16.826625'
+posted_mastodon_at: '2026-06-30T18:29:16.741784'
+posted_telegram_at: '2026-06-30T18:29:16.576890'
+posted_to:
+- telegram
+- twitter
+- mastodon
+- devto
+posted_twitter_at: '2026-06-30T18:29:16.658918'
 slug: nixlab
-title: "nixlab: Own Your Compute"
+title: 'nixlab: Own Your Compute'
 ---
 
 _[GitHub](https://github.com/thatbagu/nixlab)_
