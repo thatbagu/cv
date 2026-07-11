@@ -13,6 +13,15 @@ platforms:
 - twitter
 - mastodon
 - devto
+posted_devto_at: '2026-07-11T16:27:19.605311'
+posted_mastodon_at: '2026-07-11T16:27:19.524057'
+posted_telegram_at: '2026-07-11T16:27:19.362035'
+posted_to:
+- telegram
+- twitter
+- mastodon
+- devto
+posted_twitter_at: '2026-07-11T16:27:19.442852'
 slug: terminal-ai-workspace
 title: 'Optimizing the Pilot: My Terminal-First AI Agent Workspace'
 ---
