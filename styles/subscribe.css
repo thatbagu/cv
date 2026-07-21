@@ -7,9 +7,9 @@
 }
 
 .subscribe-btn {
-  background-color: var(--green);
+  background-color: var(--mauve);
   color: var(--base);
-  border: 2px solid var(--green);
+  border: 2px solid var(--mauve);
   border-radius: 8px;
   padding: 16px 32px;
   font-family: "Courier New", monospace;
@@ -26,12 +26,13 @@
 }
 
 .subscribe-btn:hover {
-  background-color: var(--teal);
-  border-color: var(--teal);
+  opacity: 0.85;
+  transform: translateY(-1px);
 }
 
 .subscribe-btn:active {
-  background-color: var(--green);
+  opacity: 1;
+  transform: none;
 }
 
 .subscribe-btn .dropdown-arrow {
@@ -45,7 +46,7 @@
 /* Dropdown */
 .subscribe-dropdown {
   background-color: var(--surface0);
-  border: 2px solid var(--green);
+  border: 2px solid var(--mauve);
   border-radius: 10px;
   padding: 10px;
   width: 100%;
@@ -82,13 +83,14 @@
 
 .subscribe-link:hover {
   background-color: var(--surface1);
-  border-color: var(--green);
+  border-color: var(--mauve);
+  opacity: 1;
 }
 
 .subscribe-link svg {
   flex-shrink: 0;
   margin-right: 16px;
-  stroke: var(--green);
+  stroke: var(--mauve);
 }
 
 .subscribe-link-content {

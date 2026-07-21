@@ -1,6 +1,7 @@
 .ascii-frame {
   font-family: "Courier New", monospace;
-  font-size: 6px; /* ← Changed from 12px to 6px (half size) */
+  font-size: 6px;
+  font-weight: bold;
   line-height: 1;
   margin: 0;
   padding: 0;

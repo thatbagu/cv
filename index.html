@@ -25,30 +25,19 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/htmx/1.9.6/htmx.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
     <script src="/scripts/search.js" defer></script>
-    <script src="/scripts/crow.js" defer></script>
+    <script src="/scripts/steppe.js" defer></script>
+    <script src="/scripts/shader-bg.js" defer></script>
     <script src="/scripts/event-listener.js" defer></script>
     <script src="/scripts/mastodon.js" defer></script>
     <script src="/scripts/scroll-to-content.js" defer></script>
     <script src="/scripts/ascii-animation.js" defer></script>
   </head>
   <body>
+    <canvas id="shader-bg"></canvas>
+    <div id="shader-overlay"></div>
     <div class="container">
       <header>
-        <div class="mountains-and-name">
-          <div id="ascii-mountains">
-            <pre>
-         .       /\  *     .        *      ./\    /\
-    *        /\^     /^^\     /\  /\      /\    /  \  /  \   .
-    *    /^   \/\/ /\ \   /  \/  \  /\/  \  /    \/    \
-     /\    /  \  /  \/  \  \/    /   \/      \/         /\  /\
-   /\/  \  /    \/    \   \ /    /\   /      /  /\      /  \/  \
-   /  \   \/      \    /    /    /  \ /      /  /  \    /        \
-   /    \  /       /   /    /    /    /      /  /    \  /    /\    \
-                </pre
-            >
-          </div>
-          <h1>Egor Kosaretsky</h1>
-        </div>
+        <h1>Egor Kosaretsky</h1>
         <nav>
           <button hx-get="/home" hx-target="#main-content">Home</button>
           <button hx-get="/blog" hx-target="#main-content">Blog</button>
@@ -194,7 +183,7 @@
                 font-size="8"
                 font-weight="bold"
                 text-anchor="middle"
-                fill="var(--lavender)"
+                fill="var(--mauve)"
                 stroke="none"
                 font-family="monospace"
               >
@@ -203,22 +192,21 @@
             </svg>
           </a>
         </div>
-        <div id="crow"></div>
       </header>
 
-      <div id="terminal">
-        <div id="output"></div>
-        <div id="input-line">
-          <span class="prompt"></span>
-          <input type="text" id="input" autofocus />
-        </div>
+      <div id="steppe"></div>
+
+      <div id="search-bar">
+        <input type="text" id="search-input" placeholder="Search posts and pages..." autocomplete="off" />
+        <button id="search-btn">Search</button>
       </div>
+      <div id="search-results"></div>
 
       <main id="main-content" role="main"></main>
 
       <footer>
         <div id="ascii-animation"></div>
-        <p>© 2025 Egor Kosaretsky</p>
+        <p>© 2026 Egor Kosaretsky</p>
       </footer>
     </div>
   </body>

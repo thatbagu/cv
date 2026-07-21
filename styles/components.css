@@ -1,6 +1,31 @@
+.mastodon-post-item {
+  border-left: 4px solid var(--mauve);
+  padding: 10px 14px;
+  margin-bottom: 16px;
+  background-color: var(--surface0);
+  border-radius: 0 5px 5px 0;
+}
+
+.mastodon-post-item:last-child {
+  margin-bottom: 0;
+}
+
+.mastodon-post-content {
+  line-height: 1.5;
+}
+
+.mastodon-post-content a {
+  color: var(--mauve);
+}
+
+.mastodon-post-date {
+  margin: 6px 0 0;
+  color: var(--subtext0);
+}
+
 #main-content {
   background-color: var(--mantle);
-  border: 1px solid var(--green);
+  border: 2px solid var(--mauve);
   border-radius: 5px;
   padding: 20px;
   flex-grow: 1;
@@ -43,11 +68,11 @@ nav {
   gap: 10px;
 }
 
-/* Base navigation button styles */
+/* Navigation button styles */
 nav button {
-  background-color: var(--surface0);
-  color: var(--crust);
-  border: 2px solid;
+  background-color: var(--mauve);
+  color: var(--base);
+  border: 2px solid var(--mauve);
   border-radius: 5px;
   padding: 8px 16px;
   font-family: "Courier New", monospace;
@@ -58,77 +83,16 @@ nav button {
   text-decoration: none;
 }
 
-/* Individual button colors */
-nav button:nth-child(1) {
-  /* Home - Blue */
-  background-color: var(--blue);
-  border-color: var(--blue);
-}
-
-nav button:nth-child(1):hover {
-  background-color: var(--sapphire);
-  border-color: var(--sapphire);
-  transform: translateY(-2px);
-  box-shadow: 0 4px 8px rgba(137, 180, 250, 0.4);
-}
-
-nav button:nth-child(2) {
-  /* Blog - Mauve */
-  background-color: var(--mauve);
-  border-color: var(--mauve);
-}
-
-nav button:nth-child(2):hover {
-  background-color: var(--peach);
-  border-color: var(--peach);
+nav button:hover {
+  opacity: 0.85;
   transform: translateY(-2px);
   box-shadow: 0 4px 8px rgba(250, 179, 135, 0.4);
 }
 
-nav button:nth-child(3) {
-  /* About - Green */
-  background-color: var(--green);
-  border-color: var(--green);
-}
-
-nav button:nth-child(3):hover {
-  background-color: var(--teal);
-  border-color: var(--teal);
-  transform: translateY(-2px);
-  box-shadow: 0 4px 8px rgba(166, 227, 161, 0.4);
-}
-
-nav button:nth-child(4) {
-  /* Projects - Pink */
-  background-color: var(--pink);
-  border-color: var(--pink);
-}
-
-nav button:nth-child(4):hover {
-  background-color: var(--rosewater);
-  border-color: var(--rosewater);
-  transform: translateY(-2px);
-  box-shadow: 0 4px 8px rgba(245, 194, 231, 0.4);
-}
-
-nav button:nth-child(5) {
-  /* Contact - Yellow */
-  background-color: var(--yellow);
-  border-color: var(--yellow);
-}
-
-nav button:nth-child(5):hover {
-  background-color: var(--peach);
-  border-color: var(--peach);
-  transform: translateY(-2px);
-  box-shadow: 0 4px 8px rgba(249, 226, 175, 0.4);
-}
-
-/* Active state for all buttons */
 nav button:active {
   transform: translateY(0);
   box-shadow: none;
-  opacity: 0.8;
+  opacity: 1;
 }
 
 nav a {
@@ -138,7 +102,7 @@ nav a {
 
 .contact-form {
   background-color: var(--surface0);
-  border: 1px solid var(--green);
+  border: 2px solid var(--mauve);
   border-radius: 10px;
   padding: 20px;
   max-width: 500px;
@@ -175,9 +139,9 @@ nav a {
 }
 
 .submit-btn {
-  background-color: var(--green);
+  background-color: var(--mauve);
   color: var(--base);
-  border: none;
+  border: 2px solid var(--mauve);
   border-radius: 5px;
   padding: 10px 20px;
   font-family: "Courier New", monospace;
@@ -187,14 +151,15 @@ nav a {
 }
 
 .submit-btn:hover {
-  background-color: var(--teal);
+  opacity: 0.85;
   transform: translateY(-2px);
-  box-shadow: 0 2px 5px rgba(166, 227, 161, 0.4);
+  box-shadow: 0 2px 5px rgba(250, 179, 135, 0.4);
 }
 
 .submit-btn:active {
   transform: translateY(0);
   box-shadow: none;
+  opacity: 1;
 }
 
 .connect-info {
@@ -202,8 +167,8 @@ nav a {
 }
 
 .connect-info h3 {
-  color: var(--blue);
-  border-bottom: 1px solid var(--blue);
+  color: var(--mauve);
+  border-bottom: 2px solid var(--mauve);
   padding-bottom: 10px;
   margin-bottom: 15px;
 }
@@ -219,7 +184,7 @@ nav a {
 
 .text-link {
   background-color: transparent;
-  color: var(--green);
+  color: var(--mauve);
   padding: 0;
   font-size: inherit;
   text-decoration: underline;
@@ -232,7 +197,7 @@ nav a {
   font-family: monospace;
   font-size: 12px;
   white-space: pre;
-  color: var(--lavender);
+  color: var(--mauve);
 }
 
 .mountains-and-name {
@@ -256,7 +221,7 @@ nav a {
   text-align: center;
   font-size: 14px;
   line-height: 1;
-  color: var(--lavender);
+  color: var(--mauve);
   margin: 0;
   padding: 0;
 }
@@ -270,12 +235,15 @@ nav a {
 
 .social-links a {
   background-color: transparent;
+  text-decoration: none;
   padding: 0;
+  display: inline-flex;
   transition: transform 0.3s ease;
 }
 
 .social-links a:hover {
   background-color: transparent;
+  opacity: 1;
   transform: translateY(-3px);
   box-shadow: none;
 }
@@ -284,13 +252,153 @@ nav a {
   width: 24px;
   height: 24px;
   fill: none;
-  stroke: var(--lavender);
+  stroke: var(--mauve);
   stroke-width: 2;
   stroke-linecap: round;
   stroke-linejoin: round;
-  transition: stroke 0.3s ease;
+  transition: opacity 0.3s ease;
 }
 
 .social-links a:hover svg {
+  opacity: 0.75;
   stroke: var(--mauve);
+}
+
+/* Steppe settlement */
+#steppe {
+  position: relative;
+  height: 80px;
+  overflow: visible;
+  margin-bottom: 2px;
+  pointer-events: none;
+}
+
+#steppe .steppe-yurt {
+  position: absolute;
+  font-family: "Courier New", monospace;
+  font-size: 5px;
+  font-style: normal;
+  font-weight: bold;
+  line-height: 1;
+  margin: 0;
+  padding: 0;
+  color: var(--mauve);
+  white-space: pre;
+  -webkit-text-stroke: 0.6px var(--mauve);
+  transform: translateX(-50%);
+}
+
+.steppe-horse {
+  position: absolute;
+  font-family: "Courier New", monospace;
+  font-size: 5px;
+  font-style: normal;
+  font-weight: bold;
+  line-height: 1;
+  margin: 0;
+  padding: 0;
+  color: var(--mauve);
+  white-space: pre;
+  -webkit-text-stroke: 0.6px var(--mauve);
+}
+
+.steppe-smoke {
+  position: absolute;
+  font-family: "Courier New", monospace;
+  font-size: 7px;
+  font-style: normal;
+  line-height: 1;
+  color: var(--subtext0);
+  pointer-events: none;
+  white-space: pre;
+}
+
+/* Search bar */
+#search-bar {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+
+#search-input {
+  flex-grow: 1;
+  background-color: var(--surface0);
+  border: 2px solid var(--mauve);
+  border-radius: 5px;
+  color: var(--text);
+  font-family: "Courier New", monospace;
+  font-size: 14px;
+  padding: 8px 12px;
+  outline: none;
+  transition: box-shadow 0.2s ease;
+}
+
+#search-input:focus {
+  box-shadow: 0 0 0 2px rgba(250, 179, 135, 0.25);
+}
+
+#search-btn {
+  background-color: var(--mauve);
+  color: var(--base);
+  border: 2px solid var(--mauve);
+  border-radius: 5px;
+  padding: 8px 16px;
+  font-family: "Courier New", monospace;
+  font-size: 14px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+#search-btn:hover {
+  opacity: 0.85;
+  transform: translateY(-1px);
+}
+
+#search-btn:active {
+  transform: none;
+  opacity: 1;
+}
+
+#search-results {
+  background-color: var(--surface0);
+  border: 2px solid var(--mauve);
+  border-radius: 5px;
+  margin-bottom: 10px;
+  overflow: hidden;
+}
+
+#search-results:empty {
+  display: none;
+}
+
+.search-result-item {
+  padding: 10px 14px;
+  cursor: pointer;
+  border-bottom: 1px solid var(--surface1);
+  color: var(--text);
+  font-size: 14px;
+  transition: background-color 0.15s ease;
+}
+
+.search-result-item:last-child {
+  border-bottom: none;
+}
+
+.search-result-item:hover {
+  background-color: var(--surface1);
+  color: var(--mauve);
+}
+
+.search-result-label {
+  color: var(--mauve);
+  font-weight: bold;
+  margin-right: 6px;
+}
+
+.search-status {
+  padding: 10px 14px;
+  color: var(--subtext0);
+  font-style: italic;
+  font-size: 14px;
 }

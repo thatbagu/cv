@@ -158,40 +158,11 @@ class ASCIIAnimation {
   }
 }
 
-// Random animation selector with weighted probability
-function selectRandomAnimation() {
-  // Random number between 0 and 10 (inclusive)
-  // 0-9 = cat (10 outcomes), 10 = amogus (1 outcome)
-  const random = Math.floor(Math.random() * 11);
-
-  if (random === 10) {
-    // 1/11 chance for amogus
-    return {
-      framesPath: "/assets/index/animation/amogus",
-      frameCount: 11, // Adjust this to your amogus frame count
-      name: "amogus",
-    };
-  } else {
-    // 10/11 chance for cat
-    return {
-      framesPath: "/assets/index/animation/cat",
-      frameCount: 171,
-      name: "cat",
-    };
-  }
-}
-
 document.addEventListener("DOMContentLoaded", () => {
-  // Select random animation with weighted probability
-  const selectedAnim = selectRandomAnimation();
-
-  console.log(`Loading animation: ${selectedAnim.name}`);
-
-  // Initialize the selected ASCII animation
   const asciiAnim = new ASCIIAnimation("ascii-animation", {
     fps: 24,
     colorOverlay: true,
-    frameCount: selectedAnim.frameCount,
-    framesPath: selectedAnim.framesPath,
+    frameCount: 171,
+    framesPath: "/assets/index/animation/cat",
   });
 });

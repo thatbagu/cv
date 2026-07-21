@@ -6,26 +6,30 @@ async function fetchLatestPost() {
     if (!container) return;
 
     try {
-        const response = await fetch(`${instance}/api/v1/accounts/${username}/statuses?limit=1`);
+        const response = await fetch(`${instance}/api/v1/accounts/${username}/statuses?limit=3&exclude_replies=true&exclude_reblogs=true`);
         const data = await response.json();
 
         if (data.length > 0) {
-            displayPost(data[0]);
+            displayPosts(data);
         } else {
             container.innerHTML = '<p>No recent posts found.</p>';
         }
     } catch (error) {
-        console.error('Error fetching Mastodon post:', error);
+        console.error('Error fetching Mastodon posts:', error);
         container.innerHTML = '<p>No recent posts found.</p>';
     }
 }
 
-function displayPost(post) {
-    const postElement = document.getElementById('mastodon-post');
-    if (!postElement) return;
-    postElement.innerHTML = `
-        <h2>My Thoughts Today</h2>
-        <div>${post.content}</div>
-        <p><small>Posted on: ${new Date(post.created_at).toLocaleString()}</small></p>
-    `;
+function displayPosts(posts) {
+    const container = document.getElementById('mastodon-post');
+    if (!container) return;
+
+    const items = posts.map(post => `
+        <div class="mastodon-post-item">
+            <div class="mastodon-post-content">${post.content}</div>
+            <p class="mastodon-post-date"><small>${new Date(post.created_at).toLocaleString()}</small></p>
+        </div>
+    `).join('');
+
+    container.innerHTML = `<h2>Recent posts</h2>${items}`;
 }

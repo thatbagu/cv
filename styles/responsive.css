@@ -22,18 +22,6 @@ html {
     font-size: 1.5em;
   }
 
-  /* Make terminal visible and usable on mobile */
-  #terminal {
-    display: block !important;
-    height: 200px; /* Slightly shorter on mobile */
-    font-size: 14px;
-    margin-bottom: 15px;
-  }
-
-  #input {
-    font-size: 16px; /* Prevent zoom on iOS when focusing */
-  }
-
   /* Make crow visible on mobile with adjusted positioning */
   #crow {
     display: block !important;
@@ -56,7 +44,7 @@ html {
     padding-bottom: 10px;
     -webkit-overflow-scrolling: touch;
     scrollbar-width: thin;
-    scrollbar-color: var(--lavender) var(--surface0);
+    scrollbar-color: var(--mauve) var(--surface0);
   }
 
   /* Hide scrollbar but keep functionality */
@@ -70,7 +58,7 @@ html {
   }
 
   nav::-webkit-scrollbar-thumb {
-    background: var(--lavender);
+    background: var(--mauve);
     border-radius: 2px;
   }
 
@@ -146,22 +134,17 @@ html {
     padding: 10px;
   }
 
-  #terminal {
-    height: 150px;
-    font-size: 12px;
-  }
-
   #crow {
     font-size: 8px;
   }
 }
 
-/* Ensure buttons and links are easily tappable on mobile */
+/* Ensure buttons are easily tappable on mobile */
 @media (max-width: 768px) {
-  a,
   button,
+  .btn,
   .submit-btn {
-    min-height: 44px; /* Minimum touch target size */
+    min-height: 44px;
     line-height: 44px;
     padding: 0 16px;
   }
