@@ -1,12 +1,14 @@
 name: Build and Deploy SSH TUI
 
 on:
+  workflow_dispatch:
   push:
     branches: [main]
     paths:
       - 'ssh-tui/**'
       - 'assets/**'
       - 'blog_posts/**'
+      - '.github/workflows/deploy-tui.yml'
 
 jobs:
   build-and-deploy:
