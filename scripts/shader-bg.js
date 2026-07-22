@@ -3,7 +3,11 @@
     if (!canvas) { console.error('[shader] canvas#shader-bg not found'); return; }
 
     const isMobile = /Mobi|Android/i.test(navigator.userAgent);
-    if (isMobile) { canvas.style.display = 'none'; return; }
+    if (isMobile) {
+        canvas.style.display = 'none';
+        document.body.classList.add('shader-active');
+        return;
+    }
 
     const gl = canvas.getContext('webgl2');
     if (!gl) { console.error('[shader] WebGL2 not available'); return; }
