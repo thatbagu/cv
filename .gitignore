@@ -43,3 +43,11 @@ devenv.local.nix
 
 # pre-commit
 .pre-commit-config.yaml
+
+# SSH TUI server
+ssh_host_key
+ssh_server.py
+ssh-tui/.ssh/
+ssh-tui/cv-ssh-tui
+ssh-tui/ssh-tui
+cv-tui
