@@ -66,9 +66,11 @@
     return arr[Math.floor(Math.random() * arr.length)];
   }
 
+  const availableBases = isMobile ? bases.slice(0, 4) : bases;
+
   function randomYurt() {
     const roofIdx = Math.floor(Math.random() * roofs.length);
-    const text = roofs[roofIdx].trimEnd() + "\n" + pick(bases).trimEnd();
+    const text = roofs[roofIdx].trimEnd() + "\n" + pick(availableBases).trimEnd();
     return { text, roofIdx };
   }
 

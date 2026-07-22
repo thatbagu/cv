@@ -65,3 +65,8 @@ body {
 body.shader-active #shader-overlay {
   background: rgba(24, 24, 37, 0.75);
 }
+
+@media (max-width: 768px) {
+  #shader-bg      { display: none !important; }
+  #shader-overlay { background: transparent !important; }
+}
