@@ -299,6 +299,7 @@ func renderContact(w int, st styles) string {
 		{"LinkedIn: ", "linkedin.com/in/egor-kosaretskiy", "https://www.linkedin.com/in/egor-kosaretskiy/"},
 		{"GitHub:   ", "github.com/thatbagu", "https://github.com/thatbagu"},
 		{"Web:      ", "https://mlship.dev", "https://mlship.dev"},
+		{"PGP Key:  ", "mlship.dev/pgp  (A9B2618B04CED76F)", "https://mlship.dev/pgp"},
 	} {
 		sb.WriteString("  " + st.sub.Render(e.label) + osc8(e.url, st.sap.Render(e.val)) + "\n")
 	}

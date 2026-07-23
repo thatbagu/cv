@@ -1,11 +1,17 @@
 from fastapi import APIRouter, Request, HTTPException
-from fastapi.responses import HTMLResponse
+from fastapi.responses import HTMLResponse, PlainTextResponse
 from bs4 import BeautifulSoup
 import asyncio
 from app.utils import read_file, generate_blog_html
 from app.routes.blog import get_blog_posts
 
 router = APIRouter()
+
+
+@router.get("/pgp", response_class=PlainTextResponse)
+async def serve_pgp_key():
+    key = await asyncio.to_thread(read_file, "assets/pgp.asc")
+    return PlainTextResponse(content=key.decode("utf-8"), media_type="application/pgp-keys")
 
 
 @router.get("/", response_class=HTMLResponse)
