@@ -12,11 +12,19 @@ on:
 
 jobs:
   build-and-deploy:
-    runs-on: [self-hosted, homelab]
+    # Self-hosted in the homelab cluster (one fresh pod per job, see
+    # thatbagu/dotfiles homelab/apps/cv-runner.nix).
+    runs-on: cv-runner
 
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
+
+      - name: Set up Go
+        uses: actions/setup-go@v5
+        with:
+          go-version-file: ssh-tui/go.mod
+          cache-dependency-path: ssh-tui/go.sum
 
       - name: Build binary
         working-directory: ssh-tui
@@ -32,6 +40,12 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
+      - name: Set up Buildx (the runner pod's BuildKit)
+        uses: docker/setup-buildx-action@v3
+        with:
+          driver: remote
+          endpoint: tcp://127.0.0.1:1234
+
       - name: Build and push Docker image
         uses: docker/build-push-action@v5
         with:
@@ -42,8 +56,11 @@ jobs:
             ${{ secrets.DOCKERHUB_USERNAME }}/cv-tui:${{ github.sha }}
             ${{ secrets.DOCKERHUB_USERNAME }}/cv-tui:latest
 
+      - name: Set up kubectl
+        uses: azure/setup-kubectl@v4
+
       - name: Deploy to cluster
+        # kubectl uses the runner pod's ServiceAccount (restart cv/cv-tui only).
         run: |
-          export KUBECONFIG=/etc/rancher/k3s/k3s.yaml
           kubectl rollout restart deployment/cv-tui -n cv
           kubectl rollout status deployment/cv-tui -n cv --timeout=120s
